@@ -7,127 +7,198 @@
     <meta name="author" content="Artem">
     <title>My GPT</title>
     <style>
-        /* Центрирование всего содержимого */
-        body {
-            background: #2c2c2c; /* Тёмно-серый фон */
-            color: #ECECF1; /* Светлый текст */
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            height: 100vh; /* Полная высота экрана */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* Вертикальное центрирование */
-            align-items: center; /* Горизонтальное центрирование */
-            text-align: center; /* Текст по центру */
-            padding-top: 20px; /* Добавляем отступ сверху */
-            overflow: hidden; /* Отключаем вертикальную прокрутку */
-        }
+        /* Основные стили */
+body {
+    background: #2c2c2c;
+    color: #ECECF1;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding-top: 20px;
+    overflow: hidden;
+}
 
-        h1 {
-            font-size: 3rem; /* Размер заголовка */
-            margin-bottom: 10px;
-        }
+/* Заголовок */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
 
-        body > p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #b5b5bc;
-        }
+body > p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #b5b5bc;
+}
 
-        /* Контейнер сообщений */
-        #messages {
-            width: 90%;
-            max-width: 700px;
-            max-height: 400px;
-            height: calc(100vh - 250px);
-            overflow-y: auto; /* Включаем вертикальную прокрутку */
-            background: #3c3c3c; /* Серый фон для контейнера */
-            border-radius: 10px;
-            padding-bottom: 80px; /* Добавляем отступ снизу для формы */
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 10px; /* Отступ между сообщениями */
-            margin-bottom: 20px;
-        }
+/* Контейнер сообщений */
+#messages {
+    width: 90%;
+    max-width: 700px;
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+    background: #3c3c3c;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-        /* Стили для полосы прокрутки */
-        #messages::-webkit-scrollbar {
-            width: 8px;
-        }
+/* Сообщение пользователя */
+.mess-user {
+    background: #434654;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+    color: #ECECF1;
+    text-align: left;
+    font-size: 0.9rem;
+}
 
-        /* Сообщение пользователя */
-        .mess-user {
-            background: #434654;
-            padding: 15px 20px;
-            border-radius: 8px;
-            border-left: 4px solid #4CAF50; /* Зелёная линия слева */
-            color: #ECECF1;
-            text-align: left;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+/* Сообщение системы */
+.mess-chat {
+    background: #2b2d37;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #FF9800;
+    color: #ECECF1;
+    font-style: italic;
+    text-align: left;
+    font-size: 0.9rem;
+}
 
-        /* Сообщение системы */
-        .mess-chat {
-            background: #2b2d37;
-            padding: 15px 20px;
-            border-radius: 8px;
-            border-left: 4px solid #FF9800; /* Оранжевая линия слева */
-            color: #ECECF1;
-            font-style: italic; /* Курсив для выделения */
-            text-align: left;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+/* Фиксированная форма ввода */
+form {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 90%;
+    max-width: 700px;
+    background: #2c2c2c;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
 
-        /* Фиксированная форма ввода внизу экрана */
-        form {
-            position: fixed; /* Фиксируем форму внизу */
-            bottom: 50px; /* Отступ от нижнего края */
-            left: 50%; /* Центрируем форму по горизонтали */
-            transform: translateX(-50%); /* Смещение для точного центрирования */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px; /* Расстояние между полем ввода и кнопкой */
-            width: 90%;
-            max-width: 700px;
-            z-index: 10; /* Убедимся, что форма находится выше всех */
-        }
+/* Поле ввода */
+form input {
+    background: #40414F;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid transparent;
+    color: #ECECF1;
+    width: 100%;
+    font-size: 0.9rem;
+    outline: none;
+}
 
-        form input {
-            background: #40414F;
-            border-radius: 8px;
-            padding: 15px;
-            border: 1px solid transparent;
-            color: #ECECF1;
-            width: 100%;
-            font-size: 1rem;
-            outline: none;
-        }
+/* Кнопка отправки */
+form button {
+    background: linear-gradient(135deg, #d26565, #f78b60);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #ECECF1;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
 
-        form button {
-            background: linear-gradient(135deg, #d26565, #f78b60);
-            border: none;
-            border-radius: 8px;
-            padding: 15px 25px;
-            color: #ECECF1;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
+form button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #f78b60, #d26565);
+}
 
-        form button:hover {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #f78b60, #d26565);
-        }
+/* Адаптация под мобильные устройства */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem; /* Уменьшаем размер заголовка */
+    }
 
-        form button:active {
-            transform: scale(0.95);
-            background: #8c3d3d;
-        }
+    body > p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    #messages {
+        height: calc(100vh - 220px); /* Уменьшаем высоту контейнера сообщений */
+        padding: 10px; /* Уменьшаем внутренние отступы */
+        gap: 8px; /* Уменьшаем расстояние между сообщениями */
+    }
+
+    .mess-user, .mess-chat {
+        font-size: 0.8rem; /* Уменьшаем размер текста в сообщениях */
+        padding: 8px 10px; /* Уменьшаем отступы в сообщениях */
+    }
+
+    form {
+        bottom: 10px; /* Поднимаем форму ввода */
+        padding: 5px;
+        width: 95%; /* Растягиваем форму шире */
+    }
+
+    form input {
+        padding: 8px; /* Уменьшаем отступы в поле ввода */
+        font-size: 0.8rem;
+    }
+
+    form button {
+        padding: 8px 10px; /* Уменьшаем размер кнопки */
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    body > p {
+        font-size: 0.8rem;
+    }
+
+    #messages {
+        height: calc(100vh - 200px); /* Ещё меньше высота */
+        gap: 5px;
+    }
+
+    .mess-user, .mess-chat {
+        font-size: 0.7rem;
+        padding: 5px 8px;
+    }
+
+    form {
+        bottom: 5px;
+        padding: 5px;
+        width: 100%; /* Полная ширина на маленьком экране */
+    }
+
+    form input {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+
+    form button {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+}
+
     </style>
 </head>
 <body>
