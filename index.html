@@ -39,7 +39,7 @@
             width: 90%;
             max-width: 700px;
             max-height: 400px;
-            height: calc(100vh - 220px);
+            height: calc(100vh - 250px);
             overflow-y: auto; /* Включаем вертикальную прокрутку */
             background: #3c3c3c; /* Серый фон для контейнера */
             border-radius: 10px;
@@ -83,7 +83,7 @@
         /* Фиксированная форма ввода внизу экрана */
         form {
             position: fixed; /* Фиксируем форму внизу */
-            bottom: 10px; /* Отступ от нижнего края */
+            bottom: 50px; /* Отступ от нижнего края */
             left: 50%; /* Центрируем форму по горизонтали */
             transform: translateX(-50%); /* Смещение для точного центрирования */
             display: flex;
@@ -92,6 +92,7 @@
             gap: 10px; /* Расстояние между полем ввода и кнопкой */
             width: 90%;
             max-width: 700px;
+            z-index: 10; /* Убедимся, что форма находится выше всех */
         }
 
         form input {
